@@ -8,6 +8,12 @@
 			-ms-transition    : all 400ms ease;
 			-o-transition     : all 400ms ease;
 			transition        : all 400ms ease;
+			-webkit-transform : scale(1);
+			-moz-transform    : scale(1);
+			-ms-transform     : scale(1);
+			-o-transform      : scale(1);
+			transform         : scale(1);
+			opacity: 1;
 		}
 		.CategoryContent .ProductList li.hidden-product {
 			-webkit-transform : scale(0.001);
@@ -99,7 +105,12 @@
 		        var $lowPrice = parseInt($("#category-sort-form input[name='budget_start']").val());
 		        var $highPrice = parseInt($("#category-sort-form input[name='budget_end']").val());
 		        if ($productPrice < $lowPrice || $productPrice > $highPrice) {
-			        $this.addClass('hidden-product').delay(400).css('display', 'none');
+			        $this.addClass('hidden-product');
+			        function hideOutOfBudget(){
+				        $this.hide();
+			        }
+					setTimeout(hideOutOfBudget, 400)
+// 			        .delay(400).css('display', 'none');
 /*
 			        .animate({ 
 						'transform': 'scale(0.001)',
@@ -109,7 +120,11 @@
 					});
 */
 		        } else {
-					$this.css('display', 'inline-block').removeClass('hidden-product');
+					$this.show();
+			        function showInBudget(){
+				        $this.removeClass('hidden-product');
+			        }
+					setTimeout(showInBudget, 1)
 /*
 			        $this.removeClass('hidden-product').animate({ 
 						'transform': 'scale(1)',
