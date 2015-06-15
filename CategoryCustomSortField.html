@@ -120,13 +120,15 @@
 	        $productItems.each(function() {
 		        var $this = $(this);
 		        console.log($this);
-				var $productPrice = $this.find('.p-price:not("strike")').text().replace(/[^\d\.]/g, '').parseInt();
+				var $productPrice = parseInt($this.find('.p-price:not("strike")').text().replace(/[^\d\.]/g, ''));
 		        console.log($productPrice);
 		        var $lowPrice = $("#category-sort-form input[name='budget_start']").val();
 		        var $highPrice = $("#category-sort-form input[name='budget_end']").val();
 		        if (($productPrice < $lowPrice) && ($productPrice > $highPrice)) {
+			        console.log('condition met!');
 			        $this.fadeOut();
 		        } else {
+			        console.log('condition met!');
 			        $this.fadeIn();
 		        }
 	        });
