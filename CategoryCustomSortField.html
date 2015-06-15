@@ -122,13 +122,20 @@
 				var $productPrice = parseInt($this.find('.p-price:not("strike")').text().replace(/[^\d\.]/g, ''));
 		        var $lowPrice = parseInt($("#category-sort-form input[name='budget_start']").val());
 		        var $highPrice = parseInt($("#category-sort-form input[name='budget_end']").val());
-		        console.log('is', $productPrice, 'lower than', $lowPrice, 'and higher than', $highPrice, '?');
-		        if ($productPrice < $lowPrice && $productPrice > $highPrice) {
-			        console.log('OUT of budget because', $productPrice, 'is lower than', $lowPrice, 'and higher than', $highPrice, 'so please hide this:', $this);
-			        $this.fadeOut();
+		        if ($productPrice < $lowPrice || $productPrice > $highPrice) {
+			        $this.addClass('hidden-product').animate({ 
+						transform: 'scale(0.001)',
+						opacity: '0'
+					}, function() { 
+						$this.css('display', 'none');
+					});
 		        } else {
-			        //console.log('AFFORDABLE, so please show this:', $this);
-			        $this.fadeIn();
+			        $this.removeClass('hidden-product').animate({ 
+						transform: 'scale(1)',
+						opacity: '1'
+					}, function() { 
+						$this.css('display', 'inline-block');
+					});
 		        }
 	        });
         }
