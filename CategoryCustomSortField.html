@@ -1,9 +1,9 @@
 <div class="CustomSortingField">
-
-
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <div id="category-sort" class="desktop">
-        <h4>Filter these products <i id="collapse-status" class="icon-up-open"></i></h4>
+        <h4>Filter these products <i id="collapse-status" class="fa fa-chevron-up"></i></h4>
         
         <div id="category-sort-content">
         
@@ -18,6 +18,7 @@
                     <p><label>Budget: <span id="budget-span"></span></label></p>
                     <div id="budget-range"></div>
                 </div>
+<!--
                 <div class="six columns alpha omega offset-by-one">
                     <p><label>Height: <span id="height-span"></span></label></p>
                     <div id="height-range"></div>
@@ -44,6 +45,7 @@
                 <input id="sort-submit" type="submit" value="Filter Products" class="btn" />
                 <input type="checkbox" name="hidesoldout" id="hidesoldout" >Hide Sold Out Products
                 </div>
+-->
                 </form>
             
             <div class="clear"></div>
@@ -55,28 +57,6 @@
     $(function() {
 
         function sliderstop() {
-	        /*
-            $('ul.ProductList').find('br.clear').remove();
-            */
-            $('ul.ProductList').children('li').removeClass('Odd').removeClass('Even');
-            
-            $('ul.ProductList').children('li:visible').each(function(i) {
-                if ( i == 0 ) {
-                    $(this).addClass('Odd');
-                }
-                if ( i == 1 ) {
-                    $(this).addClass('Even');
-                }
-                if ( i  % 2 === 0 ) {
-                    $(this).addClass('Odd');
-                }
-                if ( i  % 2 != 0 ) {
-                    $(this).addClass('Even');
-                }
-				$('ul.ProductList li').css('min-height', '456px');                
-            });
-            
-            
 /*
 		            function setHeight(ele) {
 				var ele = $(ele),
@@ -95,10 +75,7 @@
 					.css('min-height', maxHeight);
 			}
 */
-
-            
-            
-            $('#loading').hide();
+            $('#AjaxLoading').hide();
         }
         
         function sliderstart() {
@@ -125,7 +102,7 @@
             });
             */
                     
-            $('#loading').show();
+            $('#AjaxLoading').show();
         }
         
         function hidesoldout() {
@@ -137,57 +114,52 @@
             $('ul.ProductList').find('.SoldOut').show();
             sliderstop();
         }
+        
+        function filterByPrice() {
+	        var $productItems = $('ul.ProductList > li').find('li');
+	        $productItems.each(function() {
+		        var $this = $(this);
+		        console.log($this);
+				var $productPrice = $this.find('.p-price:not("strike")').text().replace(/[^\d\.]/g, '').parseInt();
+		        console.log($productPrice);
+		        var $lowPrice = $("#category-sort-form input[name='budget_start']").val();
+		        var $highPrice = $("#category-sort-form input[name='budget_end']").val();
+		        if (($productPrice < $lowPrice) && ($productPrice > $highPrice)) {
+			        $this.fadeOut();
+		        } else {
+			        $this.fadeIn();
+		        }
+	        });
+        }
 
-        /*
-var budgetslider = $( "#budget-range" ).slider({
+		var budgetslider = $( "#budget-range" ).slider({
           range: true,
           min: 0,
           max: 900,
           values: [ 80, 500 ],
           slide: function( event, ui ) {
-            $( "#budget-span" ).text( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            $( "#budget-span" ).text( "Between $" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
           },
           stop: function( event, ui ) {
             $("#category-sort-form input[name='budget_start']").val(ui.values[ 0 ]);
             $("#category-sort-form input[name='budget_end']").val(ui.values[ 1 ]);
+            filterByPrice();
           }
         });
         $( "#budget-span" ).text( "Between $" + $( "#budget-range" ).slider( "values", 0 ) + " - $" + $( "#budget-range" ).slider( "values", 1 ) );
         
-        var heightslider = $( "#height-range" ).slider({
-          range: true,
-          min: 0,
-          max: 30,
-          values: [ 0, 28 ],
-          slide: function( event, ui ) {
-            $( "#height-span" ).text( ui.values[ 0 ] + " inches - " + ui.values[ 1 ] + ' inches tall');
-          },
-          stop: function( event, ui ) {
-            $("#category-sort-form input[name='height_start']").val(ui.values[ 0 ]);
-            $("#category-sort-form input[name='height_end']").val(ui.values[ 1 ]);
-          }
-        });
-        $( "#height-span" ).text( "Between " + $( "#height-range" ).slider( "values", 0 ) + " inches - " + $( "#height-range" ).slider( "values", 1 ) + ' inches tall');
-        
-*/
         $('#category-sort h4').click(function() {        
             $('#category-sort-content').toggle(); 
             
             if($('#category-sort-content').is(":visible")) {
-                $.cookie('show_sort', 'yes');
+                $(this).find('i').attr('class', 'fa fa-chevron-up');
+                //$.cookie('show_sort', 'yes');
             }
             else {
-                $.cookie('show_sort', 'no');
+                $(this).find('i').attr('class', 'fa fa-chevron-down');
+                //$.cookie('show_sort', 'no');
             }
 
-            if($('#category-sort-content').is(":visible")) {
-                $(this).find('i').attr('class', 'icon-up-open');
-            }
-            else {
-                $(this).find('i').attr('class', 'icon-down-open');
-            }     
-
-                
 /*
             if($(this).find('i').hasClass('icon-down-open')) {
                 $(this).find('i').attr('class', 'icon-up-open');
@@ -197,131 +169,18 @@ var budgetslider = $( "#budget-range" ).slider({
             }     
 */
         });
-        
-        // Read cookies
-/*
-        if($.cookie('show_sort') == 'no') {
-            $('#category-sort-content').hide();
-        }
-        
-        if($.cookie('show_soldout') == 'no') {
-            hidesoldout();
-            $('#hidesoldout').prop('checked', true);
-        }
-*/
-        
+                
         $('#hidesoldout').change(function() {
             if($(this).is(":checked")) {
-                $.cookie('show_soldout', 'no');
+                //$.cookie('show_soldout', 'no');
                 hidesoldout();
             }
             else {
-                $.cookie('show_soldout', 'yes');
+                //$.cookie('show_soldout', 'yes');
                 showsoldout();
             }
         });
         
-        $( "#sort-submit" ).click(function() {
-            sliderstart();
-        });
-        
-        $( "#category-sort-form" ).submit(function( event ) {
-            var values = {};
-            $.each($(this).serializeArray(), function(i, field) {            
-                if(field.name in values) {
-                    values[field.name] += ',' + field.value;
-                }
-                else {
-                    values[field.name] = field.value;
-                }
-            });
-            
-            var response = '';
-            
-            // Add hash to url
-            window.location.hash = 'budget_low=' + values.budget_start + '&budget_high='+ values.budget_end + '&height_low=' + values.height_start + '&height_high=' + values.height_end + '&jointsize=' + values['jointsizes[]'] + '&jointgender=' + values['jointgenders[]'];
-            
-            $.post("http://api.dankstop.com/api/search.php", { id: values.id, budget_start: values.budget_start, budget_end: values.budget_end, height_start: values.height_start, height_end: values.height_end, jointsize: values['jointsizes[]'], jointgender: values['jointgenders[]'] }, function( data ) {
-                $.each(data, function(key, vals) {
-                                
-                    var soldout = '';
-                    var soldoutclass = '';
-                    if(vals.soldout === true) {
-                        soldout = '<div class="sold-out">Sold Out</div>';
-                        soldoutclass = 'soldout';
-                    }
-                    
-                    var sizes = '';
-                    var multiple = '';
-                    if(vals.sizes === true) {
-                        if(vals.colors === true) {
-                            multiple = 'multiple';
-                        }
-                        sizes = '<span class="bottombanner size '+multiple+'">Multiple Sizes Available</span>';
-                    }
-                    
-                    var colors = '';
-                    if(vals.colors === true) {
-                        if(vals.sizes === true) {
-                            multiple = 'multiple';
-                        }
-                        colors = '<span class="bottombanner color '+multiple+'">Multiple Color Options</span>';
-                    }
-                    
-                    var unique = '';
-                    if(vals.unique === true) {
-                        unique = '<span class="bottombanner">Unique One of a Kind Piece</span>';
-                    }
-                                    
-                    response += '<div class="four columns item '+soldoutclass+'"><a href="http://'+window.location.hostname + window.location.pathname+'/products/'+vals.url+'">'+soldout+'<span class="img-container"><img src="'+vals.img+'" alt="'+vals.title.replace(/"/g, "")+'" class="product" />'+sizes+colors+unique+'</span><h3>'+vals.title+'</h3><h4>$'+vals.price+'</h4></a></div>';
-                });
-                
-                $('ul.ProductList').html(response);
-            })
-            .done(function() {
-                sliderstop();
-                
-                if($.cookie('show_soldout') == 'no') {
-                    hidesoldout();
-                }
-            });
-            
-            $('#paging').hide();
-            
-            event.preventDefault();
-        });
-        
-        // Read hash
-        if(window.location.hash) {
-            var urlhash = window.location.hash.substring(1).split("&");
-            
-            budgetslider.slider( "values", [ urlhash[0].split("=")[1], urlhash[1].split("=")[1] ] );
-            heightslider.slider( "values", [ urlhash[2].split("=")[1], urlhash[3].split("=")[1] ] );
-            
-            var sizes = urlhash[4].split("=")[1].split(",");
-            var genders = urlhash[5].split("=")[1].split(",");
-            
-            
-            $("#category-sort-form input[name='jointsizes[]']").each(function(i) {
-                if(sizes.indexOf($(this).val()) > -1) {
-                    $(this).prop('checked', true);
-                }
-                else {
-                    $(this).prop('checked', false);
-                }
-            });
-            
-            $("#category-sort-form input[name='jointgenders[]']").each(function(i) {
-                if(genders.indexOf($(this).val()) > -1) {
-                    $(this).prop('checked', true);
-                }
-                else {
-                    $(this).prop('checked', false);
-                }
-            });
-            
-            $("#sort-submit").trigger('click');
-        }
 
 /*
         $( "#budget-span" ).text( "Between $" + $( "#budget-range" ).slider( "values", 0 ) + " - $" + $( "#budget-range" ).slider( "values", 1 ) );        
