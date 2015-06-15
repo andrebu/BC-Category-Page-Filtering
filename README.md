@@ -45,6 +45,8 @@ OR
 - [jQuery: .toggle()](http://api.jquery.com/toggle/)
 - [Animating lists with CSS 3 transitions](http://blog.stevensanderson.com/2013/03/15/animating-lists-with-css-3-transitions/)
 - [How to animate elements move with css3 transitions after hiding some element](http://stackoverflow.com/questions/18364938/how-to-animate-elements-move-with-css3-transitions-after-hiding-some-element)
+- [Manipulating CSS pseudo-elements such as ::before and ::after using jQuery](http://stackoverflow.com/questions/5041494/manipulating-css-pseudo-elements-such-as-before-and-after-using-jquery)
+- []()
 - []()
 - []()
 
