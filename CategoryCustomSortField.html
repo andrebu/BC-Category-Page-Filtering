@@ -124,16 +124,16 @@
 		        var $highPrice = parseInt($("#category-sort-form input[name='budget_end']").val());
 		        if ($productPrice < $lowPrice || $productPrice > $highPrice) {
 			        $this.addClass('hidden-product').animate({ 
-						transform: 'scale(0.001)',
+						transform: scale(0.001),
 						opacity: '0'
-					}, function() { 
+					}, 370, function() { 
 						$this.css('display', 'none');
 					});
 		        } else {
 			        $this.removeClass('hidden-product').animate({ 
-						transform: 'scale(1)',
+						transform: scale(1),
 						opacity: '1'
-					}, function() { 
+					}, 370, function() { 
 						$this.css('display', 'inline-block');
 					});
 		        }
