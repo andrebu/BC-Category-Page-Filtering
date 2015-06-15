@@ -44,7 +44,7 @@ OR
 - [Run Function After Delay](http://stackoverflow.com/questions/10860171/run-function-after-delay)
 - [jQuery: .toggle()](http://api.jquery.com/toggle/)
 - [Animating lists with CSS 3 transitions](http://blog.stevensanderson.com/2013/03/15/animating-lists-with-css-3-transitions/)
-- []()
+- [How to animate elements move with css3 transitions after hiding some element](http://stackoverflow.com/questions/18364938/how-to-animate-elements-move-with-css3-transitions-after-hiding-some-element)
 - []()
 - []()
 
