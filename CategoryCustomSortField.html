@@ -67,13 +67,21 @@
 		}
 		#category-sort .ui-slider-handle {
 			border-radius: 50%; 
-			width: 1em; 
-			height: 1em; 
-			top: -.4em; 
+			width: 15px; 
+			height: 15px; 
+			top: -6px; 
 			border: #39b54a 3px solid; 
 			cursor: -webkit-grab;
 			cursor: w-resize;  
 			background: #fff;
+			color: transparent;
+			font-size: 10px;
+/*
+			border-radius: 0;
+			width: 33px;
+			height: 12px;
+			text-align: center;
+*/
 		}
 		#category-sort .ui-slider-handle:hover {
 		    cursor: -webkit-grab;
@@ -210,7 +218,9 @@
           max: 900,
           values: [ 80, 500 ],
           slide: function( event, ui ) {
-            $( "#budget-span" ).text( "Between $" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            $('#budget-span').text( 'Between $' + ui.values[ 0 ] + ' - $' + ui.values[ 1 ] );
+            $('#budget-range .ui-slider-handle:nth-of-type(1)').text('$' + ui.values[ 0 ]);
+            $('#budget-range .ui-slider-handle:nth-of-type(2)').text('$' + ui.values[ 1 ]);
           },
           stop: function( event, ui ) {
             $("#category-sort-form input[name='budget_start']").val(ui.values[ 0 ]);
