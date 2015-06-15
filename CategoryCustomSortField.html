@@ -119,16 +119,18 @@
 	        var $productItems = $('ul.ProductList > li');
 	        $productItems.each(function() {
 		        var $this = $(this);
-		        console.log($this);
+		        //console.log($this);
 				var $productPrice = parseInt($this.find('.p-price:not("strike")').text().replace(/[^\d\.]/g, ''));
 		        console.log($productPrice);
 		        var $lowPrice = $("#category-sort-form input[name='budget_start']").val();
+		        console.log($lowPrice);
 		        var $highPrice = $("#category-sort-form input[name='budget_end']").val();
+		        console.log($highPrice);
 		        if (($productPrice < $lowPrice) && ($productPrice > $highPrice)) {
-			        console.log('condition met!');
+			        console.log('OUT of budget because', $productPrice, 'is lower than', $lowPrice, 'and higher than', $highPrice, 'so please hide this:', $this);
 			        $this.fadeOut();
 		        } else {
-			        console.log('condition met!');
+			        //console.log('AFFORDABLE, so please show this:', $this);
 			        $this.fadeIn();
 		        }
 	        });
