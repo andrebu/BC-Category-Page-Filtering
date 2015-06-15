@@ -40,6 +40,8 @@ OR
 
 
 ##Resources
+- [Using css transform property in jQuery](http://stackoverflow.com/questions/10808096/using-css-transform-property-in-jquery)
+- [Run Function After Delay](http://stackoverflow.com/questions/10860171/run-function-after-delay)
 - []()
 - []()
 - []()
