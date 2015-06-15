@@ -1,6 +1,23 @@
 <div class="CustomSortingField">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<style>
+		.CategoryContent .ProductList li {
+			-webkit-transition: all 400ms ease;
+			-moz-transition   : all 400ms ease;
+			-ms-transition    : all 400ms ease;
+			-o-transition     : all 400ms ease;
+			transition        : all 400ms ease;
+		}
+		.CategoryContent .ProductList li.hidden-product {
+			-webkit-transform : scale(0.001);
+			-moz-transform    : scale(0.001);
+			-ms-transform     : scale(0.001);
+			-o-transform      : scale(0.001);
+			transform         : scale(0.001);
+			opacity: 0;
+		}
+	</style>
 
     <div id="category-sort" class="desktop">
         <h4>Filter these products <i id="collapse-status" class="fa fa-chevron-up"></i></h4>
@@ -57,51 +74,10 @@
     $(function() {
 
         function sliderstop() {
-/*
-		            function setHeight(ele) {
-				var ele = $(ele),
-					maxHeight = 0;
-				ele
-					// reset the height just in case it was set by the stylesheet so
-					// we can detect it
-					.css('min-height', 'auto')
-					// get the one with the greatest height
-					.each(function() {
-						if ($(this).height() > maxHeight) {
-							maxHeight = $(this).height();
-						}
-					})
-					// and set them all to the greatest height
-					.css('min-height', maxHeight);
-			}
-*/
             $('#AjaxLoading').hide();
         }
         
-        function sliderstart() {
-            /*
-            currentproducts = $('#products').children('.item:visible');
-            products.find('br.clear').remove();
-            products.children('.item').removeClass('alpha').removeClass('omega');
-            
-            height_vals = $("#height-range").slider('values');
-            budget_vals = $("#budget-range").slider('values');
-
-            jointsize_vals = [];
-            $('#jointsizes input').each(function() {
-                if($(this).is(":checked")) {
-                    jointsize_vals.push($(this).val());
-                }
-            });
-            
-            jointgender_vals = [];
-            $('#jointgenders input').each(function() {
-                if($(this).is(":checked")) {
-                    jointgender_vals.push($(this).val());
-                }
-            });
-            */
-                    
+        function sliderstart() {                    
             $('#AjaxLoading').show();
         }
         
@@ -123,19 +99,23 @@
 		        var $lowPrice = parseInt($("#category-sort-form input[name='budget_start']").val());
 		        var $highPrice = parseInt($("#category-sort-form input[name='budget_end']").val());
 		        if ($productPrice < $lowPrice || $productPrice > $highPrice) {
-			        $this.addClass('hidden-product').animate({ 
-						transform: scale(0.001),
+			        $this.addClass('hidden-product').delay(400).css('display', 'none');
+/*
+			        .animate({ 
+						'transform': 'scale(0.001)',
 						opacity: '0'
 					}, 370, function() { 
 						$this.css('display', 'none');
 					});
+*/
 		        } else {
+					$this.css('display', 'inline-block').removeClass('hidden-product');
+/*
 			        $this.removeClass('hidden-product').animate({ 
-						transform: scale(1),
+						'transform': 'scale(1)',
 						opacity: '1'
-					}, 370, function() { 
-						$this.css('display', 'inline-block');
-					});
+					}, 370);
+*/
 		        }
 	        });
         }
