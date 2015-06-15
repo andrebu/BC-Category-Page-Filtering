@@ -64,6 +64,18 @@
 		#category-sort .six.columns {
 		    width: 400px;
 		    float: left; 
+/* 		    text-align: center; */
+		}
+		#category-sort .ui-slider {
+		    margin-bottom: 20px;
+		}
+		#category-sort .ui-slider-horizontal {
+		    height: 8px;
+		}
+		#category-sort .ui-slider .ui-slider-range {
+		    height: 4px;
+		    margin: 2px 0;
+		    background: #39b54a;
 		}
 		#category-sort .ui-slider-handle {
 			border-radius: 50%; 
@@ -89,105 +101,67 @@
 		#category-sort .ui-slider-handle:active {
 		    cursor: -webkit-grabbing;
 		}
-		#category-sort .ui-slider {
-		    margin-bottom: 20px;
+/*
+		#category-sort .ui-slider-handle:before {
+			display: block;
+			content: "$" attr(data-content);
+			position: relative;
+			border: 1px solid #39b54a;
+			border-radius: 3px;
+			top: -22px;
+			left: -8px;
+			box-shadow: 0px 0 5px 0 rgba(0,0,0,0.3);
+			color: #333;
+			font-size: 10px;
+			width: 30px;
+			text-align: center;
 		}
-		#category-sort .ui-slider-horizontal {
-		    height: 8px;
+		#category-sort .ui-slider-handle:nth-of-type(1):before {
+			content: "$80";
 		}
-		#category-sort .ui-slider .ui-slider-range {
-		    height: 4px;
-		    margin: 2px 0;
-		    background: #39b54a;
+		#category-sort .ui-slider-handle:nth-of-type(2):before {
+			content: "$500";
 		}
-		#category-sort .sort-button input, 
-		#category-sort form input[type="checkbox"], 
-		#category-sort form input[type="radio"] {
-		    margin-bottom: 20px;
+		#category-sort .ui-slider-handle:after {
+			content: "";
+			position: absolute;
+			bottom: 19px;
+			left: 3px;
+			border-width: 5px 5px 0px;
+			border-style: solid;
+			border-color: #39b54a transparent;
+			display: block;
+			width: 0;
 		}
-		#category-sort .sort-button {
-		    display: inline-block;
-		    margin-right: 12px;
-		}
-		#category-sort .sort-submit {
-		    margin-bottom: 20px;
-		}
-		#category-sort div.checker {
-			float: none;
+*/
+		#category-sort .slider-label {
+			top: -17px;
+			position: relative;
+			font-size: 10px;
+			display: none;
 		}
 	</style>
 
     <div id="category-sort">
         <h4>Filter these products by price <i id="collapse-status" class="fa fa-chevron-down"></i></h4>
-        
         <div id="category-sort-content">
-        
             <form id="category-sort-form">
                 <input name="id" type="hidden" value="" />
-                <input name="budget_start" type="hidden" value="50" />
-                <input name="budget_end" type="hidden" value="300" />
-                <input name="height_start" type="hidden" value="0" />
-                <input name="height_end" type="hidden" value="28" />
+                <input name="budget_start" type="hidden" value="80" />
+                <input name="budget_end" type="hidden" value="500" />
                 
                 <div class="six columns">
                     <p><label>Budget: <span id="budget-span"></span></label></p>
                     <div id="budget-range"></div>
+                    <spap class="slider-label">You can use this slider to select your budget range.</spap>
                 </div>
-<!--
-                <div class="six columns alpha omega offset-by-one">
-                    <p><label>Height: <span id="height-span"></span></label></p>
-                    <div id="height-range"></div>
-                </div>
-                
-                <div class="clear"></div>
-                
-                <div class="six columns">
-                    <p><label>Joint Size:</label></p>
-                    <div class="sort-button"><input type="checkbox" name="jointsizes[]" value="10mm" checked="checked">10mm</div>
-                    <div class="sort-button"><input type="checkbox" name="jointsizes[]" value="14.5mm" checked="checked">14.5mm</div>
-                    <div class="sort-button"><input type="checkbox" name="jointsizes[]" value="18.8mm" checked="checked">18.8mm</div>
-                </div>
-                <div class="six columns alpha omega offset-by-one">
-                    <p><label>Joint Gender:</label></p>
-                    <div class="sort-button"><input type="checkbox" name="jointgenders[]" value="male" checked="checked">Male Joint</div>
-                    <div class="sort-button"><input type="checkbox" name="jointgenders[]" value="female" checked="checked">Female Joint</div>
-                    <div class="sort-button"><input type="checkbox" name="jointgenders[]" value="na" checked="checked">Not Available</div>
-                </div>
-                
-                <div class="clear"></div>
-                
-                <div class="category-sort-foot">
-                <input id="sort-submit" type="submit" value="Filter Products" class="btn" />
-                <input type="checkbox" name="hidesoldout" id="hidesoldout" >Hide Sold Out Products
-                </div>
--->
-                </form>
-            
+            </form>
             <div class="clear"></div>
         </div>
     </div>
 
-
     <script type="text/javascript">
     $(function() {
-
-        function sliderstop() {
-            $('#AjaxLoading').hide();
-        }
-        
-        function sliderstart() {                    
-            $('#AjaxLoading').show();
-        }
-        
-        function hidesoldout() {
-            $('ul.ProductList').find('.SoldOut').hide();
-            sliderstop();
-        }
-        
-        function showsoldout() {
-            $('ul.ProductList').find('.SoldOut').show();
-            sliderstop();
-        }
         
         function filterByPrice() {
 	        var $productItems = $('ul.ProductList > li');
@@ -213,23 +187,25 @@
         }
 
 		var budgetslider = $( "#budget-range" ).slider({
-          range: true,
-          min: 0,
-          max: 900,
-          values: [ 80, 500 ],
-          slide: function( event, ui ) {
-            $('#budget-span').text( 'Between $' + ui.values[ 0 ] + ' - $' + ui.values[ 1 ] );
-            $('#budget-range .ui-slider-handle:nth-of-type(1)').text('$' + ui.values[ 0 ]);
-            $('#budget-range .ui-slider-handle:nth-of-type(2)').text('$' + ui.values[ 1 ]);
-          },
-          stop: function( event, ui ) {
-            $("#category-sort-form input[name='budget_start']").val(ui.values[ 0 ]);
-            $("#category-sort-form input[name='budget_end']").val(ui.values[ 1 ]);
-            filterByPrice();
-          }
-        });
-        $( "#budget-span" ).text( "Between $" + $( "#budget-range" ).slider( "values", 0 ) + " - $" + $( "#budget-range" ).slider( "values", 1 ) );
-        
+			range: true,
+			min: 0,
+			max: 900,
+			values: [ 80, 500 ],
+			slide: function( event, ui ) {
+				$('#budget-span').text( 'Between $' + ui.values[ 0 ] + ' - $' + ui.values[ 1 ] );
+				$('#budget-range .ui-slider-handle:nth-of-type(1)').text('$' + ui.values[ 0 ]).attr('data-content', ui.values[ 0 ]);
+				$('#budget-range .ui-slider-handle:nth-of-type(2)').text('$' + ui.values[ 1 ]).attr('data-content', ui.values[ 1 ]);
+			},
+			stop: function( event, ui ) {
+				$("#category-sort-form input[name='budget_start']").val(ui.values[ 0 ]);
+				$("#category-sort-form input[name='budget_end']").val(ui.values[ 1 ]);
+				filterByPrice();
+			}
+		});
+		$('#budget-range .ui-slider-handle:nth-of-type(1)').text('$80').attr('data-content', '80');
+		$('#budget-range .ui-slider-handle:nth-of-type(2)').text('$500').attr('data-content', '500');
+		$( "#budget-span" ).text( "Between $" + $( "#budget-range" ).slider( "values", 0 ) + " - $" + $( "#budget-range" ).slider( "values", 1 ) );
+
         $('#category-sort h4').click(function() {
 	        var $catFilterHeader = $('#category-sort h4'); 
             $('#category-sort-content').slideToggle( function() {
