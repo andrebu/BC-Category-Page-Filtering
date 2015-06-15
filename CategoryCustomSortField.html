@@ -2,6 +2,8 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<style>
+		/* custom sort field for sliders and selectors in category section */
+		/* category sorting */
 		.CategoryContent .ProductList li {
 			-webkit-transition: all 400ms ease;
 			-moz-transition   : all 400ms ease;
@@ -23,10 +25,91 @@
 			transform         : scale(0.001);
 			opacity: 0;
 		}
+		.CustomSortingField {
+/* 			display: none;  */
+		    margin-bottom: 15px; 
+		}
+		#category-sort-content { 
+			border-bottom: 1px solid #e8e8e8; 
+			padding-bottom: 4px; 
+			display: none;
+		}
+		#category-sort h4 {
+		    border-bottom: 1px solid #e8e8e8;
+		    border-top: 1px solid #e8e8e8;
+		    padding: 10px 6px !important;
+		    margin-bottom: 15px !important; 
+		    display: block !important;
+		    clear: both; 
+		    cursor: pointer; 
+		}
+		#category-sort h4 i {
+			padding-left: 10px;
+		}
+		#category-sort label, 
+		#category-sort legend {
+		    display: block;
+		    font-weight: bold;
+		    font-size: 13px;
+		}
+		#category-sort label span, 
+		#category-sort legend span {
+		    font-weight: normal;
+		}
+		#category-sort .columns {
+		    margin-left: 10px;
+		    margin-right: 10px;
+		}
+		#category-sort .six.columns {
+		    width: 400px;
+		    float: left; 
+		}
+		#category-sort .ui-slider-handle {
+			border-radius: 50%; 
+			width: 1em; 
+			height: 1em; 
+			top: -.4em; 
+			border: #39b54a 3px solid; 
+			cursor: -webkit-grab;
+			cursor: w-resize;  
+			background: #fff;
+		}
+		#category-sort .ui-slider-handle:hover {
+		    cursor: -webkit-grab;
+		}
+		#category-sort .ui-slider-handle:active {
+		    cursor: -webkit-grabbing;
+		}
+		#category-sort .ui-slider {
+		    margin-bottom: 20px;
+		}
+		#category-sort .ui-slider-horizontal {
+		    height: 8px;
+		}
+		#category-sort .ui-slider .ui-slider-range {
+		    height: 4px;
+		    margin: 2px 0;
+		    background: #39b54a;
+		}
+		#category-sort .sort-button input, 
+		#category-sort form input[type="checkbox"], 
+		#category-sort form input[type="radio"] {
+		    margin-bottom: 20px;
+		}
+		#category-sort .sort-button {
+		    display: inline-block;
+		    margin-right: 12px;
+		}
+		#category-sort .sort-submit {
+		    margin-bottom: 20px;
+		}
+		#category-sort div.checker {
+			float: none;
+		}
 	</style>
 
     <div id="category-sort" class="desktop">
-        <h4>Filter these products <i id="collapse-status" class="fa fa-chevron-up"></i></h4>
+        <h4>Filter these products <i id="collapse-status" class="fa fa-chevron-down"></i></h4>
         
         <div id="category-sort-content">
         
@@ -110,27 +193,12 @@
 				        $this.hide();
 			        }
 					setTimeout(hideOutOfBudget, 400)
-// 			        .delay(400).css('display', 'none');
-/*
-			        .animate({ 
-						'transform': 'scale(0.001)',
-						opacity: '0'
-					}, 370, function() { 
-						$this.css('display', 'none');
-					});
-*/
 		        } else {
 					$this.show();
 			        function showInBudget(){
 				        $this.removeClass('hidden-product');
 			        }
 					setTimeout(showInBudget, 1)
-/*
-			        $this.removeClass('hidden-product').animate({ 
-						'transform': 'scale(1)',
-						opacity: '1'
-					}, 370);
-*/
 		        }
 	        });
         }
@@ -151,26 +219,18 @@
         });
         $( "#budget-span" ).text( "Between $" + $( "#budget-range" ).slider( "values", 0 ) + " - $" + $( "#budget-range" ).slider( "values", 1 ) );
         
-        $('#category-sort h4').click(function() {        
-            $('#category-sort-content').toggle(); 
-            
-            if($('#category-sort-content').is(":visible")) {
-                $(this).find('i').attr('class', 'fa fa-chevron-up');
-                //$.cookie('show_sort', 'yes');
-            }
-            else {
-                $(this).find('i').attr('class', 'fa fa-chevron-down');
-                //$.cookie('show_sort', 'no');
-            }
-
-/*
-            if($(this).find('i').hasClass('icon-down-open')) {
-                $(this).find('i').attr('class', 'icon-up-open');
-            }
-            else {
-                $(this).find('i').attr('class', 'icon-down-open');
-            }     
-*/
+        $('#category-sort h4').click(function() {
+	        var $catFilterHeader = $('#category-sort h4'); 
+            $('#category-sort-content').slideToggle( function() {
+	            if($('#category-sort-content').is(":visible")) {
+	                $catFilterHeader.find('i').attr('class', 'fa fa-chevron-up');
+	                //$.cookie('show_sort', 'yes');
+	            }
+	            else {
+	                $catFilterHeader.find('i').attr('class', 'fa fa-chevron-down');
+	                //$.cookie('show_sort', 'no');
+	            }
+			}); 
         });
                 
         $('#hidesoldout').change(function() {
@@ -184,15 +244,7 @@
             }
         });
         
-
-/*
-        $( "#budget-span" ).text( "Between $" + $( "#budget-range" ).slider( "values", 0 ) + " - $" + $( "#budget-range" ).slider( "values", 1 ) );        
-        $( "#height-span" ).text( "Between " + $( "#height-range" ).slider( "values", 0 ) + " inches - " + $( "#height-range" ).slider( "values", 1 ) + ' inches tall');
-*/
-        
     });
     </script>
-
-    
     
 </div>
