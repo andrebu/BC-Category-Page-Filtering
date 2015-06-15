@@ -42,6 +42,8 @@ OR
 ##Resources
 - [Using css transform property in jQuery](http://stackoverflow.com/questions/10808096/using-css-transform-property-in-jquery)
 - [Run Function After Delay](http://stackoverflow.com/questions/10860171/run-function-after-delay)
+- [jQuery: .toggle()](http://api.jquery.com/toggle/)
+- [Animating lists with CSS 3 transitions](http://blog.stevensanderson.com/2013/03/15/animating-lists-with-css-3-transitions/)
 - []()
 - []()
 - []()
