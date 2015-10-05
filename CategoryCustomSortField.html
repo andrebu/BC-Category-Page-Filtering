@@ -67,7 +67,7 @@
 /* 		    text-align: center; */
 		}
 		#category-sort .ui-slider {
-		    margin-bottom: 20px;
+			margin: 40px 0px 20px;
 		}
 		#category-sort .ui-slider-horizontal {
 		    height: 8px;
@@ -77,14 +77,17 @@
 		    margin: 2px 0;
 		    background: #39b54a;
 		}
-		#category-sort .ui-slider-handle {
+		#category-sort .ui-slider-handle,
+		#category-sort .ui-slider-handle:hover {
 			border-radius: 50%; 
 			width: 15px; 
 			height: 15px; 
 			top: -6px; 
 			border: #39b54a 3px solid; 
+			cursor: ew-resize;
+			cursor: grab;
+			cursor: -moz-grab;
 			cursor: -webkit-grab;
-			cursor: w-resize;  
 			background: #fff;
 			color: transparent;
 			font-size: 10px;
@@ -95,13 +98,10 @@
 			text-align: center;
 */
 		}
-		#category-sort .ui-slider-handle:hover {
-		    cursor: -webkit-grab;
-		}
 		#category-sort .ui-slider-handle:active {
+			cursor: -moz-grabbing;
 		    cursor: -webkit-grabbing;
 		}
-/*
 		#category-sort .ui-slider-handle:before {
 			display: block;
 			content: "$" attr(data-content);
@@ -116,12 +116,14 @@
 			width: 30px;
 			text-align: center;
 		}
+/*
 		#category-sort .ui-slider-handle:nth-of-type(1):before {
 			content: "$80";
 		}
 		#category-sort .ui-slider-handle:nth-of-type(2):before {
 			content: "$500";
 		}
+*/
 		#category-sort .ui-slider-handle:after {
 			content: "";
 			position: absolute;
@@ -133,7 +135,6 @@
 			display: block;
 			width: 0;
 		}
-*/
 		#category-sort .slider-label {
 			top: -17px;
 			position: relative;
